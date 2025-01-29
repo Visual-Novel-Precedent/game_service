@@ -6,9 +6,10 @@ import (
 	"github.com/rs/zerolog"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"strings"
 	"visual_novel/internal/models"
-	clients_ "visual_novel/pkg/clients "
+	clients_ "visual_novel/pkg/clients"
 )
 
 type UserAuthorisationRequest struct {
@@ -31,7 +32,7 @@ func AuthorizationPlayer(email string, password string, log *zerolog.Logger) (*m
 	}
 
 	reader := strings.NewReader(string(jsonData))
-	req, err := http.NewRequest(http.MethodPost, "http://your-api-url/admin-authorization", reader)
+	req, err := http.NewRequest(http.MethodPost, os.Getenv("AUTHORIZATION_PLAYER"), reader)
 	if err != nil {
 		log.Err(fmt.Errorf("Ошибка при создании запроса: %w", err))
 		return nil, err

@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"github.com/rs/zerolog"
 	"net/http"
+	"os"
 	"strings"
-	clients_ "visual_novel/pkg/clients "
+	clients_ "visual_novel/pkg/clients"
 )
 
 type PlayerChapterProgressRequest struct {
@@ -33,7 +34,7 @@ func ChangePlayerProgress(id int64, chapterId int64, nodeId int64, endFlag bool,
 	}
 
 	reader := strings.NewReader(string(jsonData))
-	req, err := http.NewRequest(http.MethodPost, "http://your-api-url/admin-authorization", reader)
+	req, err := http.NewRequest(http.MethodPost, os.Getenv("UPDATE_CHAPTER_PROGRESS"), reader)
 	if err != nil {
 		log.Err(fmt.Errorf("Ошибка при создании запроса: %w", err))
 		return err

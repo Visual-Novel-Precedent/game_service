@@ -6,9 +6,10 @@ import (
 	"github.com/rs/zerolog"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"strings"
 	"visual_novel/internal/models"
-	clients_ "visual_novel/pkg/clients "
+	clients_ "visual_novel/pkg/clients"
 )
 
 type GetNodesRequest struct {
@@ -29,7 +30,7 @@ func GetNodesByChapterId(id int64, log *zerolog.Logger) (*[]models.Node, error) 
 	}
 
 	reader := strings.NewReader(string(jsonData))
-	req, err := http.NewRequest(http.MethodPost, "http://your-api-url/admin-authorization", reader)
+	req, err := http.NewRequest(http.MethodPost, os.Getenv("GET_NODES"), reader)
 	if err != nil {
 		log.Err(fmt.Errorf("Ошибка при создании запроса: %w", err))
 		return nil, err

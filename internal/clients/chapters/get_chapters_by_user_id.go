@@ -6,9 +6,10 @@ import (
 	"github.com/rs/zerolog"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"strings"
 	"visual_novel/internal/models"
-	clients_ "visual_novel/pkg/clients "
+	clients_ "visual_novel/pkg/clients"
 )
 
 type GetChaptersRequest struct {
@@ -29,7 +30,7 @@ func GetChaptersByUserId(id int64, log *zerolog.Logger) (*[]models.Chapter, erro
 	}
 
 	reader := strings.NewReader(string(jsonData))
-	req, err := http.NewRequest(http.MethodPost, "http://your-api-url/admin-authorization", reader)
+	req, err := http.NewRequest(http.MethodPost, os.Getenv("GET_CHAPTER_BY_ID"), reader)
 	if err != nil {
 		log.Err(fmt.Errorf("Ошибка при создании запроса: %w", err))
 		return nil, err

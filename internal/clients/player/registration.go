@@ -6,8 +6,9 @@ import (
 	"github.com/rs/zerolog"
 	"io/ioutil"
 	"net/http"
+	"os"
 	"strings"
-	clients_ "visual_novel/pkg/clients "
+	clients_ "visual_novel/pkg/clients"
 )
 
 type PlayerRegistrationRequest struct {
@@ -32,7 +33,7 @@ func PlayerRegistration(email string, password string, name string, log *zerolog
 	}
 
 	reader := strings.NewReader(string(jsonData))
-	req, err := http.NewRequest(http.MethodPost, "http://your-api-url/admin-authorization", reader)
+	req, err := http.NewRequest(http.MethodPost, os.Getenv("PLAYER_REGISTRATION"), reader)
 	if err != nil {
 		log.Err(fmt.Errorf("Ошибка при создании запроса: %w", err))
 		return nil, err

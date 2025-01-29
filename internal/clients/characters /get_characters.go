@@ -6,16 +6,16 @@ import (
 	"github.com/rs/zerolog"
 	"io"
 	"net/http"
+	"os"
 	"visual_novel/internal/models"
-	clients_ "visual_novel/pkg/clients "
+	clients_ "visual_novel/pkg/clients"
 )
 
 func GetCharacters(log *zerolog.Logger) (*[]models.Character, error) {
 	client := clients_.NewUniversalHTTPClient()
 
 	// Create the request URL with the chapter ID as a query parameter
-	// TODO: перепиши нормальный url
-	reqURL := fmt.Sprintf("http://your-api-url/admin-authorization?chapter_id")
+	reqURL := fmt.Sprintf(os.Getenv("GET_CHARACTERS"))
 
 	req, err := http.NewRequest(http.MethodGet, reqURL, nil)
 	if err != nil {

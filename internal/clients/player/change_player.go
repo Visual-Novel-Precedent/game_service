@@ -5,8 +5,9 @@ import (
 	"fmt"
 	"github.com/rs/zerolog"
 	"net/http"
+	"os"
 	"strings"
-	clients_ "visual_novel/pkg/clients "
+	clients_ "visual_novel/pkg/clients"
 )
 
 type ChangePlayerRequest struct {
@@ -37,7 +38,7 @@ func ChangePlayer(email string, id int64, name string, phone string, password st
 	}
 
 	reader := strings.NewReader(string(jsonData))
-	req, err := http.NewRequest(http.MethodPost, "http://your-api-url/admin-authorization", reader)
+	req, err := http.NewRequest(http.MethodPost, os.Getenv("CHANGE_PLAYER"), reader)
 	if err != nil {
 		log.Err(fmt.Errorf("Ошибка при создании запроса: %w", err))
 		return err

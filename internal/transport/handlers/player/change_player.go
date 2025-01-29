@@ -17,7 +17,7 @@ type ChangePlayerStatusRequest struct {
 	SoundSettings int    `json:"sound_settings"`
 }
 
-func ChangePlayerRequestHandler(log *zerolog.Logger) http.HandlerFunc {
+func ChangePlayerHandler(log *zerolog.Logger) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// Проверяем, что это POST-запрос
 		if r.Method != http.MethodPost {
